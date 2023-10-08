@@ -1,0 +1,29 @@
+{
+  "requiresCompatibilities": ["EC2"],
+  "executionRoleArn": "arn:aws:iam::986312180929:role/ecsInstanceRole",
+  "containerDefinitions": [{
+    "name": "jobportal-dev-service",
+    "image": "$IMAGE_NAME",
+    "memory": 1024,
+    "cpu": 512,
+    "essential": true,
+    "portMappings": [{
+      "containerPort": 80,
+      "protocol": "tcp",
+      "hostPort": 1000
+    }],
+    "logConfiguration": {
+      "logDriver": "awslogs",
+      "options": {
+        "awslogs-group": "awslogs-beyond-dev-ryttrak-ecs",
+        "awslogs-region": "eu-west-3",
+        "awslogs-stream-prefix": "jobportal-$ENV_NAME-service"
+      }
+    }
+  }],
+  "volumes": [],
+  "networkMode": "bridge",
+  "placementConstraints": [],
+  "taskRoleArn": "arn:aws:iam::986312180929:role/ecsInstanceRole",
+  "family": "jobportal-dev-service"
+}
